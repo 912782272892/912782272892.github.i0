@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chef & Creator Tools</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .tool {
+      background: white;
+      margin: 1.5em auto;
+      padding: 1.5em;
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    textarea, input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1e8449;
+    }
+    .premium {
+      color: gold;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍳 Chef & Creator Tools</h1>
+
+  <!-- Herramienta de recetas -->
+  <div class="tool">
+    <h2>🥗 AI Recipe Generator</h2>
+    <p>Write some ingredients or a food type:</p>
+    <textarea id="ingredients" placeholder="e.g. chicken, rice, tomato"></textarea>
+    <button onclick="generateRecipe()">Generate Recipe</button>
+    <p id="recipeOutput"></p>
+  </div>
+
+  <!-- Sistema de miniaturas -->
+  <div class="tool">
+    <h2>🖼️ Thumbnail Title Generator</h2>
+    <p>Write your video topic:</p>
+    <input type="text" id="videoTopic" placeholder="e.g. Fast Cooking Tips">
+    <button onclick="generateThumbnail()">Generate Title</button>
+    <p id="thumbnailOutput"></p>
+  </div>
+
+  <!-- Editor de IA -->
+  <div class="tool">
+    <h2>📝 Smart Text Editor</h2>
+    <p>Describe your content and get text suggestions:</p>
+    <textarea id="contentDesc" placeholder="Describe your video or product..."></textarea>
+    <button onclick="generateText()">Generate Description</button>
+    <p id="textOutput"></p>
+  </div>
+
+  <!-- Herramienta Premium -->
+  <div class="tool">
+    <h2 class="premium">🔒 Premium Tool: Advanced AI Chef Mode</h2>
+    <p>This tool is only available for <strong>PRO users</strong>.</p>
+    <button onclick="alert('Upgrade to PRO to unlock this feature!')">Try Premium</button>
+  </div>
+
+  <script>
+    function generateRecipe() {
+      const input = document.getElementById("ingredients").value.toLowerCase();
+      const output = document.getElementById("recipeOutput");
+      if (!input) {
+        output.textContent = "Please enter ingredients.";
+        return;
+      }
+      output.textContent = `Recipe Idea: Mix ${input} with spices, cook for 25 mins. Serve hot!`;
+    }
+
+    function generateThumbnail() {
+      const topic = document.getElementById("videoTopic").value;
+      const output = document.getElementById("thumbnailOutput");
+      if (!topic) {
+        output.textContent = "Please enter a topic.";
+        return;
+      }
+      const title = `🔥 ${topic.toUpperCase()} in 5 Minutes! (Shocking Results)`;
+      output.textContent = `Suggested Title: ${title}`;
+    }
+
+    function generateText() {
+      const desc = document.getElementById("contentDesc").value;
+      const output = document.getElementById("textOutput");
+      if (!desc) {
+        output.textContent = "Please write a description.";
+        return;
+      }
+      output.textContent = `Suggested Text: Discover how ${desc} can boost your creativity! Try it now.`;
+    }
+  </script>
+
+</body>
+  </html>
