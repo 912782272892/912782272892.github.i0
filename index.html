@@ -2,119 +2,1260 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chef & Creator Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍳 Chef & Creator Pro Tools - AI-Powered Culinary Assistant</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #e74c3c;
+      --secondary-color: #f39c12;
+      --accent-color: #27ae60;
+      --dark-color: #2c3e50;
+      --light-color: #ecf0f1;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0,0,0,0.1);
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --border-radius: 20px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
       padding: 20px;
-      background: #f0f2f5;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 300;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .tool {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    .tool::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--gradient);
+    }
+
+    .tool:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    .tool-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .tool-icon {
+      font-size: 2.5rem;
+      margin-right: 15px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tool h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--dark-color);
+    }
+
+    .tool p {
+      color: #7f8c8d;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--dark-color);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: var(--transition);
+      resize: vertical;
+      min-height: 50px;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    }
+
+    .btn {
+      background: var(--gradient);
+      color: var(--white);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: var(--transition);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-secondary {
+      background: var(--accent-color);
+    }
+
+    .btn-premium {
+      background: linear-gradient(135deg, #f7931e 0%, #ffd700 100%);
+      position: relative;
+    }
+
+    .btn-premium::after {
+      content: '✨';
+      margin-left: 5px;
+    }
+
+    .output {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary-color);
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .output.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .output.loading {
+      background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .premium-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: linear-gradient(135deg, #f7931e 0%, #ffd700 100%);
+      color: var(--white);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      text-align: center;
+      color: var(--white);
+      transition: var(--transition);
+    }
+
+    .feature:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: var(--white);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--white);
+      color: var(--dark-color);
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      transform: translateX(400px);
+      transition: var(--transition);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 40px;
+      color: var(--white);
+    }
+
+    .stat {
       text-align: center;
     }
-    h1 {
-      color: #2c3e50;
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
     }
-    .tool {
-      background: white;
-      margin: 1.5em auto;
-      padding: 1.5em;
-      border-radius: 15px;
-      max-width: 600px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
-    textarea, input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    button {
-      padding: 10px 20px;
-      background-color: #27ae60;
-      color: white;
-      border: none;
-      border-radius: 10px;
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .tool {
+        padding: 20px;
+      }
+      
+      .stats {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+
+    .difficulty-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .difficulty-btn {
+      padding: 8px 16px;
+      border: 2px solid #e9ecef;
+      background: transparent;
+      border-radius: 20px;
       cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
     }
-    button:hover {
-      background-color: #1e8449;
+
+    .difficulty-btn.active {
+      border-color: var(--primary-color);
+      background: var(--primary-color);
+      color: var(--white);
     }
-    .premium {
-      color: gold;
-      font-weight: bold;
+
+    .cuisine-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .cuisine-tag {
+      padding: 5px 12px;
+      background: #e9ecef;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .cuisine-tag:hover,
+    .cuisine-tag.active {
+      background: var(--primary-color);
+      color: var(--white);
+    }
+
+    .recipe-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .recipe-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .ingredients-list {
+      list-style: none;
+      margin: 15px 0;
+    }
+
+    .ingredients-list li {
+      padding: 5px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .ingredients-list li::before {
+      content: '🥄';
+      margin-right: 10px;
+    }
+
+    .steps-list {
+      counter-reset: step-counter;
+      list-style: none;
+      margin: 15px 0;
+    }
+
+    .steps-list li {
+      counter-increment: step-counter;
+      padding: 10px 0;
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .steps-list li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 10px;
+      background: var(--primary-color);
+      color: var(--white);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1><i class="fas fa-utensils"></i> Chef & Creator Pro</h1>
+      <p>AI-Powered Culinary Assistant for Modern Content Creators</p>
+    </div>
 
-  <h1>🍳 Chef & Creator Tools</h1>
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-number" id="recipesGenerated">1,247</span>
+        <span class="stat-label">Recipes Generated</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="titlesCreated">3,891</span>
+        <span class="stat-label">Titles Created</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="contentPieces">7,653</span>
+        <span class="stat-label">Content Pieces</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Satisfaction Rate</span>
+      </div>
+    </div>
 
-  <!-- Herramienta de recetas -->
-  <div class="tool">
-    <h2>🥗 AI Recipe Generator</h2>
-    <p>Write some ingredients or a food type:</p>
-    <textarea id="ingredients" placeholder="e.g. chicken, rice, tomato"></textarea>
-    <button onclick="generateRecipe()">Generate Recipe</button>
-    <p id="recipeOutput"></p>
+    <!-- Tools Grid -->
+    <div class="tools-grid">
+      <!-- Enhanced Recipe Generator -->
+      <div class="tool">
+        <div class="tool-header">
+          <i class="fas fa-magic tool-icon"></i>
+          <h2>AI Recipe Generator Pro</h2>
+        </div>
+        <p>Create amazing recipes with AI-powered suggestions, nutritional info, and cooking tips.</p>
+        
+        <div class="input-group">
+          <label for="ingredients">Ingredients (separate with commas):</label>
+          <textarea class="form-control" id="ingredients" rows="3" placeholder="e.g. chicken breast, bell peppers, garlic, olive oil, rice"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label>Cuisine Style:</label>
+          <div class="cuisine-tags">
+            <span class="cuisine-tag" data-cuisine="italian">Italian</span>
+            <span class="cuisine-tag" data-cuisine="asian">Asian</span>
+            <span class="cuisine-tag" data-cuisine="mexican">Mexican</span>
+            <span class="cuisine-tag" data-cuisine="mediterranean">Mediterranean</span>
+            <span class="cuisine-tag" data-cuisine="indian">Indian</span>
+            <span class="cuisine-tag" data-cuisine="american">American</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Difficulty Level:</label>
+          <div class="difficulty-selector">
+            <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+            <button class="difficulty-btn active" data-difficulty="medium">Medium</button>
+            <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+          </div>
+        </div>
+
+        <button class="btn" onclick="generateAdvancedRecipe()">
+          <i class="fas fa-wand-magic-sparkles"></i>
+          Generate Recipe
+        </button>
+        
+        <div class="output" id="recipeOutput"></div>
+      </div>
+
+      <!-- Enhanced Thumbnail Generator -->
+      <div class="tool">
+        <div class="tool-header">
+          <i class="fas fa-image tool-icon"></i>
+          <h2>Viral Thumbnail Generator</h2>
+        </div>
+        <p>Create click-worthy thumbnails and titles that drive engagement and views.</p>
+        
+        <div class="input-group">
+          <label for="videoTopic">Video Topic:</label>
+          <input type="text" class="form-control" id="videoTopic" placeholder="e.g. Quick Breakfast Ideas for Busy Mornings">
+        </div>
+
+        <div class="input-group">
+          <label for="targetAudience">Target Audience:</label>
+          <select class="form-control" id="targetAudience">
+            <option value="general">General Audience</option>
+            <option value="beginners">Cooking Beginners</option>
+            <option value="professionals">Professional Chefs</option>
+            <option value="health">Health Conscious</option>
+            <option value="budget">Budget Conscious</option>
+            <option value="family">Families with Kids</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="contentStyle">Content Style:</label>
+          <select class="form-control" id="contentStyle">
+            <option value="educational">Educational</option>
+            <option value="entertaining">Entertaining</option>
+            <option value="dramatic">Dramatic</option>
+            <option value="minimalist">Minimalist</option>
+            <option value="luxury">Luxury/Premium</option>
+          </select>
+        </div>
+
+        <button class="btn btn-secondary" onclick="generateViralThumbnail()">
+          <i class="fas fa-fire"></i>
+          Create Viral Title
+        </button>
+        
+        <div class="output" id="thumbnailOutput"></div>
+      </div>
+
+      <!-- AI Content Writer -->
+      <div class="tool">
+        <div class="tool-header">
+          <i class="fas fa-pen-fancy tool-icon"></i>
+          <h2>Smart Content Writer</h2>
+        </div>
+        <p>Generate engaging descriptions, captions, and marketing copy with AI assistance.</p>
+        
+        <div class="input-group">
+          <label for="contentType">Content Type:</label>
+          <select class="form-control" id="contentType">
+            <option value="youtube">YouTube Description</option>
+            <option value="instagram">Instagram Caption</option>
+            <option value="blog">Blog Post Intro</option>
+            <option value="email">Email Newsletter</option>
+            <option value="product">Product Description</option>
+            <option value="social">Social Media Post</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="contentDesc">Describe your content:</label>
+          <textarea class="form-control" id="contentDesc" rows="4" placeholder="Describe what your video/post is about, key points, and desired tone..."></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="contentTone">Tone:</label>
+          <select class="form-control" id="contentTone">
+            <option value="friendly">Friendly & Casual</option>
+            <option value="professional">Professional</option>
+            <option value="exciting">Exciting & Energetic</option>
+            <option value="educational">Educational</option>
+            <option value="humorous">Humorous</option>
+            <option value="inspirational">Inspirational</option>
+          </select>
+        </div>
+
+        <button class="btn" onclick="generateSmartContent()">
+          <i class="fas fa-brain"></i>
+          Generate Content
+        </button>
+        
+        <div class="output" id="textOutput"></div>
+      </div>
+
+      <!-- Nutrition Calculator -->
+      <div class="tool">
+        <div class="tool-header">
+          <i class="fas fa-calculator tool-icon"></i>
+          <h2>Nutrition Calculator</h2>
+        </div>
+        <p>Calculate nutritional information and create healthy meal suggestions.</p>
+        
+        <div class="input-group">
+          <label for="foodItems">Food Items & Quantities:</label>
+          <textarea class="form-control" id="foodItems" rows="3" placeholder="e.g. 200g chicken breast, 1 cup rice, 2 tbsp olive oil"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="dietaryGoal">Dietary Goal:</label>
+          <select class="form-control" id="dietaryGoal">
+            <option value="balanced">Balanced Diet</option>
+            <option value="weight-loss">Weight Loss</option>
+            <option value="muscle-gain">Muscle Gain</option>
+            <option value="low-carb">Low Carb</option>
+            <option value="high-protein">High Protein</option>
+            <option value="vegetarian">Vegetarian</option>
+          </select>
+        </div>
+
+        <button class="btn btn-secondary" onclick="calculateNutrition()">
+          <i class="fas fa-chart-pie"></i>
+          Calculate Nutrition
+        </button>
+        
+        <div class="output" id="nutritionOutput"></div>
+      </div>
+
+      <!-- Meal Planner -->
+      <div class="tool">
+        <div class="tool-header">
+          <i class="fas fa-calendar-alt tool-icon"></i>
+          <h2>Weekly Meal Planner</h2>
+        </div>
+        <p>Plan your weekly meals with AI suggestions based on your preferences and goals.</p>
+        
+        <div class="input-group">
+          <label for="mealPreferences">Dietary Preferences:</label>
+          <textarea class="form-control" id="mealPreferences" rows="2" placeholder="e.g. vegetarian, gluten-free, low sodium, quick meals"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label for="peopleCount">Number of People:</label>
+          <select class="form-control" id="peopleCount">
+            <option value="1">1 Person</option>
+            <option value="2">2 People</option>
+            <option value="4">Family of 4</option>
+            <option value="6">Large Family (6+)</option>
+          </select>
+        </div>
+
+        <button class="btn" onclick="generateMealPlan()">
+          <i class="fas fa-utensils"></i>
+          Create Meal Plan
+        </button>
+        
+        <div class="output" id="mealPlanOutput"></div>
+      </div>
+
+      <!-- Premium Tool -->
+      <div class="tool">
+        <div class="premium-badge">Pro Only</div>
+        <div class="tool-header">
+          <i class="fas fa-crown tool-icon"></i>
+          <h2>AI Chef Master Mode</h2>
+        </div>
+        <p>Advanced AI capabilities with professional recipe analysis, cost calculation, and video script generation.</p>
+        
+        <div class="input-group">
+          <label>Professional Features:</label>
+          <ul style="list-style: none; padding: 0; margin: 10px 0;">
+            <li style="padding: 5px 0;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 8px;"></i> Advanced Recipe Analytics</li>
+            <li style="padding: 5px 0;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 8px;"></i> Cost Per Serving Calculator</li>
+            <li style="padding: 5px 0;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 8px;"></i> Video Script Generator</li>
+            <li style="padding: 5px 0;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 8px;"></i> SEO-Optimized Content</li>
+            <li style="padding: 5px 0;"><i class="fas fa-check" style="color: var(--accent-color); margin-right: 8px;"></i> Batch Recipe Processing</li>
+          </ul>
+        </div>
+
+        <button class="btn btn-premium" onclick="showPremiumModal()">
+          <i class="fas fa-rocket"></i>
+          Upgrade to Pro
+        </button>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Lightning Fast</h3>
+        <p>Generate content in seconds with our optimized AI engine</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Privacy First</h3>
+        <p>Your recipes and content stay private and secure</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h3>Mobile Optimized</h3>
+        <p>Works perfectly on all devices and screen sizes</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon"><i class="fas fa-heart"></i></div>
+        <h3>Creator Focused</h3>
+        <p>Built specifically for content creators and chefs</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Sistema de miniaturas -->
-  <div class="tool">
-    <h2>🖼️ Thumbnail Title Generator</h2>
-    <p>Write your video topic:</p>
-    <input type="text" id="videoTopic" placeholder="e.g. Fast Cooking Tips">
-    <button onclick="generateThumbnail()">Generate Title</button>
-    <p id="thumbnailOutput"></p>
-  </div>
-
-  <!-- Editor de IA -->
-  <div class="tool">
-    <h2>📝 Smart Text Editor</h2>
-    <p>Describe your content and get text suggestions:</p>
-    <textarea id="contentDesc" placeholder="Describe your video or product..."></textarea>
-    <button onclick="generateText()">Generate Description</button>
-    <p id="textOutput"></p>
-  </div>
-
-  <!-- Herramienta Premium -->
-  <div class="tool">
-    <h2 class="premium">🔒 Premium Tool: Advanced AI Chef Mode</h2>
-    <p>This tool is only available for <strong>PRO users</strong>.</p>
-    <button onclick="alert('Upgrade to PRO to unlock this feature!')">Try Premium</button>
-  </div>
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
 
   <script>
-    function generateRecipe() {
-      const input = document.getElementById("ingredients").value.toLowerCase();
+    // Enhanced Recipe Generator
+    function generateAdvancedRecipe() {
+      const ingredients = document.getElementById("ingredients").value.trim();
+      const cuisine = document.querySelector('.cuisine-tag.active')?.dataset.cuisine || 'international';
+      const difficulty = document.querySelector('.difficulty-btn.active')?.dataset.difficulty || 'medium';
       const output = document.getElementById("recipeOutput");
-      if (!input) {
-        output.textContent = "Please enter ingredients.";
+      
+      if (!ingredients) {
+        showToast("Please enter some ingredients first!");
         return;
       }
-      output.textContent = `Recipe Idea: Mix ${input} with spices, cook for 25 mins. Serve hot!`;
+
+      showLoading(output, "Generating your perfect recipe...");
+      
+      setTimeout(() => {
+        const recipe = generateRecipeContent(ingredients, cuisine, difficulty);
+        output.innerHTML = recipe;
+        output.classList.add('show');
+        updateStats('recipes');
+        showToast("Recipe generated successfully! 🍳");
+      }, 2000);
     }
 
-    function generateThumbnail() {
-      const topic = document.getElementById("videoTopic").value;
+    function generateRecipeContent(ingredients, cuisine, difficulty) {
+      const ingredientList = ingredients.split(',').map(ing => ing.trim());
+      const recipeName = generateRecipeName(ingredientList, cuisine);
+      const cookTime = difficulty === 'easy' ? '15-20' : difficulty === 'medium' ? '25-35' : '45-60';
+      const servings = Math.floor(Math.random() * 4) + 2;
+      
+      return `
+        <div class="recipe-card">
+          <h3 style="color: var(--primary-color); margin-bottom: 15px;">${recipeName}</h3>
+          <div class="recipe-meta">
+            <span><i class="fas fa-clock"></i> ${cookTime} mins</span>
+            <span><i class="fas fa-users"></i> ${servings} servings</span>
+            <span><i class="fas fa-star"></i> ${difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}</span>
+          </div>
+          
+          <h4 style="margin: 15px 0 10px 0; color: var(--dark-color);">Ingredients:</h4>
+          <ul class="ingredients-list">
+            ${ingredientList.map(ing => `<li>${ing}</li>`).join('')}
+            <li>Salt and pepper to taste</li>
+            <li>Fresh herbs for garnish</li>
+          </ul>
+          
+          <h4 style="margin: 15px 0 10px 0; color: var(--dark-color);">Instructions:</h4>
+          <ol class="steps-list">
+            <li>Prep all ingredients and heat your pan to medium-high temperature.</li>
+            <li>Season main ingredients with salt, pepper, and your favorite ${cuisine} spices.</li>
+            <li>Cook for ${Math.floor(parseInt(cookTime.split('-')[0]) * 0.6)} minutes, stirring occasionally for even cooking.</li>
+            <li>Add complementary ingredients and cook for another ${Math.floor(parseInt(cookTime.split('-')[0]) * 0.4)} minutes.</li>
+            <li>Taste and adjust seasoning. Garnish with fresh herbs and serve hot!</li>
+          </ol>
+          
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-top: 15px;">
+            <strong>Chef's Tip:</strong> For best results, let ingredients come to room temperature before cooking. This ensures even cooking and better flavor development!
+          </div>
+        </div>
+      `;
+    }
+
+    function generateRecipeName(ingredients, cuisine) {
+      const bases = {
+        italian: ['Pasta', 'Risotto', 'Piccata', 'Parmigiana'],
+        asian: ['Stir-fry', 'Curry', 'Teriyaki', 'Pad Thai'],
+        mexican: ['Tacos', 'Quesadillas', 'Enchiladas', 'Burrito Bowl'],
+        mediterranean: ['Grilled', 'Herb-Crusted', 'Mediterranean', 'Olive'],
+        indian: ['Masala', 'Tikka', 'Curry', 'Tandoori'],
+        american: ['BBQ', 'Grilled', 'Classic', 'Comfort']
+      };
+      
+      const mainIngredient = ingredients[0] ? ingredients[0].charAt(0).toUpperCase() + ingredients[0].slice(1) : 'Gourmet';
+      const base = bases[cuisine] ? bases[cuisine][Math.floor(Math.random() * bases[cuisine].length)] : 'Delicious';
+      
+      return `${base} ${mainIngredient} Delight`;
+    }
+
+    // Enhanced Thumbnail Generator
+    function generateViralThumbnail() {
+      const topic = document.getElementById("videoTopic").value.trim();
+      const audience = document.getElementById("targetAudience").value;
+      const style = document.getElementById("contentStyle").value;
       const output = document.getElementById("thumbnailOutput");
+      
       if (!topic) {
-        output.textContent = "Please enter a topic.";
+        showToast("Please enter a video topic first!");
         return;
       }
-      const title = `🔥 ${topic.toUpperCase()} in 5 Minutes! (Shocking Results)`;
-      output.textContent = `Suggested Title: ${title}`;
+
+      showLoading(output, "Creating viral content...");
+      
+      setTimeout(() => {
+        const thumbnailContent = generateThumbnailContent(topic, audience, style);
+        output.innerHTML = thumbnailContent;
+        output.classList.add('show');
+        updateStats('titles');
+        showToast("Viral title created! 🔥");
+      }, 1800);
     }
 
-    function generateText() {
-      const desc = document.getElementById("contentDesc").value;
+    function generateThumbnailContent(topic, audience, style) {
+      const hooks = {
+        educational: ['Learn', 'Master', 'Ultimate Guide', 'Step-by-Step'],
+        entertaining: ['Amazing', 'Incredible', 'Mind-Blowing', 'Hilarious'],
+        dramatic: ['SHOCKING', 'UNBELIEVABLE', 'EXPOSED', 'SECRET'],
+        minimalist: ['Simple', 'Clean', 'Pure', 'Essential'],
+        luxury: ['Premium', 'Gourmet', 'Luxury', 'Exclusive']
+      };
+      
+      const emotions = ['🔥', '😱', '🤯', '✨', '💯', '🚀', '⚡', '🎯'];
+      const hook = hooks[style][Math.floor(Math.random() * hooks[style].length)];
+      const emotion = emotions[Math.floor(Math.random() * emotions.length)];
+      
+      const titles = [
+        `${emotion} ${hook} ${topic} (${audience === 'beginners' ? 'Beginner Friendly' : 'Pro Tips'})`,
+        `${topic}: ${hook} Method That Changes Everything! ${emotion}`,
+        `Why ${topic} is HARDER Than You Think ${emotion}`,
+        `${hook} ${topic} - Results Will SHOCK You! ${emotion}`
+      ];
+      
+      const selectedTitle = titles[Math.floor(Math.random() * titles.length)];
+      
+      return `
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+          <h3 style="margin: 0 0 10px 0;">🎯 Viral Title Suggestion:</h3>
+          <p style="font-size: 1.2rem; font-weight: 600; margin: 0; line-height: 1.4;">${selectedTitle}</p>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+          <h4 style="margin: 0 0 10px 0; color: var(--dark-color);">📝 Description Ideas:</h4>
+          <p style="margin: 5px 0;">• In this video, I'll show you exactly how to ${topic.toLowerCase()}</p>
+          <p style="margin: 5px 0;">• Perfect for ${audience === 'beginners' ? 'anyone just starting out' : 'experienced creators looking to level up'}</p>
+          <p style="margin: 5px 0;">• Don't forget to subscribe for more amazing content!</p>
+        </div>
+        
+        <div style="background: #e8f5e8; padding: 15px; border-radius: 8px;">
+          <strong>💡 Thumbnail Tips:</strong> Use bright colors, clear text, and expressive faces. Include "${hook}" prominently in your thumbnail design!
+        </div>
+      `;
+    }
+
+    // Smart Content Writer
+    function generateSmartContent() {
+      const contentType = document.getElementById("contentType").value;
+      const description = document.getElementById("contentDesc").value.trim();
+      const tone = document.getElementById("contentTone").value;
       const output = document.getElementById("textOutput");
-      if (!desc) {
-        output.textContent = "Please write a description.";
+      
+      if (!description) {
+        showToast("Please describe your content first!");
         return;
       }
-      output.textContent = `Suggested Text: Discover how ${desc} can boost your creativity! Try it now.`;
-    }
-  </script>
 
+      showLoading(output, "Crafting engaging content...");
+      
+      setTimeout(() => {
+        const content = generateContentByType(contentType, description, tone);
+        output.innerHTML = content;
+        output.classList.add('show');
+        updateStats('content');
+        showToast("Content generated successfully! ✍️");
+      }, 2200);
+    }
+
+    function generateContentByType(type, description, tone) {
+      const toneStyles = {
+        friendly: { greeting: "Hey there!", closer: "Hope this helps!", emoji: "😊" },
+        professional: { greeting: "Welcome", closer: "Thank you for watching", emoji: "💼" },
+        exciting: { greeting: "Get ready!", closer: "Let's do this!", emoji: "🔥" },
+        educational: { greeting: "Today you'll learn", closer: "Keep learning!", emoji: "📚" },
+        humorous: { greeting: "Buckle up!", closer: "Thanks for the laughs!", emoji: "😄" },
+        inspirational: { greeting: "Believe in yourself!", closer: "You've got this!", emoji: "✨" }
+      };
+      
+      const style = toneStyles[tone];
+      
+      const templates = {
+        youtube: `
+          <div style="background: #ff0000; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <h4 style="margin: 0 0 10px 0;">📺 YouTube Description:</h4>
+          </div>
+          <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <p>${style.greeting} ${style.emoji}</p>
+            <p>In today's video, we're diving deep into ${description}. Whether you're a beginner or looking to improve your skills, this content is perfect for you!</p>
+            <p><strong>What you'll discover:</strong></p>
+            <p>✅ Key techniques and tips<br>✅ Common mistakes to avoid<br>✅ Pro-level insights</p>
+            <p>🔔 Don't forget to SUBSCRIBE and hit the bell icon for notifications!</p>
+            <p>💬 Let me know in the comments what you'd like to see next!</p>
+            <p>${style.closer}</p>
+            <p><strong>Tags:</strong> #cooking #tutorial #tips #${description.split(' ')[0].toLowerCase()}</p>
+          </div>
+        `,
+        instagram: `
+          <div style="background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d); color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <h4 style="margin: 0 0 10px 0;">📸 Instagram Caption:</h4>
+          </div>
+          <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <p>${style.greeting} food lovers! ${style.emoji}</p>
+            <p>Just tried this amazing approach to ${description} and I'm absolutely loving the results! 🤤</p>
+            <p>The secret is in the details - swipe to see the full process ➡️</p>
+            <p>Save this post if you want to try it later! 📌</p>
+            <p>Tag a friend who needs to see this! 👥</p>
+            <p>#foodie #cooking #recipe #${description.split(' ')[0].toLowerCase()} #homemade #delicious #yummy #instafood #foodstagram</p>
+          </div>
+        `,
+        blog: `
+          <div style="background: #2c3e50; color: white; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <h4 style="margin: 0 0 10px 0;">📝 Blog Post Intro:</h4>
+          </div>
+          <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+            <h3>Mastering the Art of ${description.charAt(0).toUpperCase() + description.slice(1)}</h3>
+            <p>${style.greeting} fellow food enthusiasts! ${style.emoji}</p>
+            <p>Have you ever wondered how to truly excel at ${description}? You're not alone. Today, we're exploring this fascinating topic in depth, breaking down everything you need to know to become proficient.</p>
+            <p>In this comprehensive guide, you'll discover proven techniques, insider tips, and practical advice that will transform your approach. Whether you're just starting out or looking to refine your skills, this post has something valuable for everyone.</p>
+            <p><em>Ready to dive in? Let's begin this culinary journey together!</em></p>
+          </div>
+        `
+      };
+      
+      return templates[type] || templates.youtube;
+    }
+
+    // Nutrition Calculator
+    function calculateNutrition() {
+      const foodItems = document.getElementById("foodItems").value.trim();
+      const goal = document.getElementById("dietaryGoal").value;
+      const output = document.getElementById("nutritionOutput");
+      
+      if (!foodItems) {
+        showToast("Please enter some food items first!");
+        return;
+      }
+
+      showLoading(output, "Calculating nutrition facts...");
+      
+      setTimeout(() => {
+        const nutrition = generateNutritionInfo(foodItems, goal);
+        output.innerHTML = nutrition;
+        output.classList.add('show');
+        showToast("Nutrition calculated! 📊");
+      }, 1500);
+    }
+
+    function generateNutritionInfo(foodItems, goal) {
+      const calories = Math.floor(Math.random() * 400) + 300;
+      const protein = Math.floor(Math.random() * 30) + 20;
+      const carbs = Math.floor(Math.random() * 40) + 30;
+      const fat = Math.floor(Math.random() * 20) + 10;
+      const fiber = Math.floor(Math.random() * 8) + 5;
+      
+      const goalAdvice = {
+        'weight-loss': 'Great choice for weight loss! Consider reducing portion size by 20%.',
+        'muscle-gain': 'Perfect for muscle building! Add a protein shake for extra gains.',
+        'low-carb': 'Consider reducing rice/bread portions and adding more vegetables.',
+        'high-protein': 'Excellent protein content! This meal supports your goals.',
+        'balanced': 'Well-balanced meal with good macro distribution.',
+        'vegetarian': 'Nutritious plant-based options with complete amino acids.'
+      };
+      
+      return `
+        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #ddd;">
+          <h3 style="color: var(--primary-color); margin-bottom: 20px;">📊 Nutrition Facts</h3>
+          
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-bottom: 20px;">
+            <div style="text-align: center; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary-color);">${calories}</div>
+              <div style="font-size: 0.9rem; color: #666;">Calories</div>
+            </div>
+            <div style="text-align: center; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: var(--accent-color);">${protein}g</div>
+              <div style="font-size: 0.9rem; color: #666;">Protein</div>
+            </div>
+            <div style="text-align: center; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: var(--secondary-color);">${carbs}g</div>
+              <div style="font-size: 0.9rem; color: #666;">Carbs</div>
+            </div>
+            <div style="text-align: center; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+              <div style="font-size: 1.5rem; font-weight: bold; color: var(--dark-color);">${fat}g</div>
+              <div style="font-size: 0.9rem; color: #666;">Fat</div>
+            </div>
+          </div>
+          
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+            <strong>🎯 Goal-Specific Advice:</strong><br>
+            ${goalAdvice[goal]}
+          </div>
+          
+          <div style="background: #fff3cd; padding: 15px; border-radius: 8px;">
+            <strong>💡 Nutritionist Tip:</strong> This meal provides ${fiber}g of fiber, which is excellent for digestive health. Pair with plenty of water for optimal nutrition absorption!
+          </div>
+        </div>
+      `;
+    }
+
+    // Meal Planner
+    function generateMealPlan() {
+      const preferences = document.getElementById("mealPreferences").value.trim();
+      const people = document.getElementById("peopleCount").value;
+      const output = document.getElementById("mealPlanOutput");
+      
+      if (!preferences) {
+        showToast("Please enter your dietary preferences!");
+        return;
+      }
+
+      showLoading(output, "Planning your perfect week...");
+      
+      setTimeout(() => {
+        const mealPlan = generateWeeklyPlan(preferences, people);
+        output.innerHTML = mealPlan;
+        output.classList.add('show');
+        showToast("Meal plan ready! 📅");
+      }, 2500);
+    }
+
+    function generateWeeklyPlan(preferences, people) {
+      const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+      const meals = {
+        breakfast: ['Overnight Oats', 'Avocado Toast', 'Smoothie Bowl', 'Greek Yogurt Parfait', 'Veggie Scramble'],
+        lunch: ['Quinoa Salad', 'Buddha Bowl', 'Soup & Sandwich', 'Stir-fry', 'Grain Bowl'],
+        dinner: ['Grilled Protein with Veggies', 'Pasta Primavera', 'Sheet Pan Dinner', 'Curry & Rice', 'Stuffed Peppers']
+      };
+      
+      let planHtml = `
+        <div style="background: white; padding: 20px; border-radius: 12px; border: 1px solid #ddd;">
+          <h3 style="color: var(--primary-color); margin-bottom: 20px;">📅 Your Weekly Meal Plan (${people} ${people === '1' ? 'Person' : 'People'})</h3>
+      `;
+      
+      days.forEach(day => {
+        const breakfast = meals.breakfast[Math.floor(Math.random() * meals.breakfast.length)];
+        const lunch = meals.lunch[Math.floor(Math.random() * meals.lunch.length)];
+        const dinner = meals.dinner[Math.floor(Math.random() * meals.dinner.length)];
+        
+        planHtml += `
+          <div style="border: 1px solid #e9ecef; border-radius: 8px; padding: 15px; margin-bottom: 15px;">
+            <h4 style="color: var(--dark-color); margin-bottom: 10px;">${day}</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+              <div><strong>🌅 Breakfast:</strong> ${breakfast}</div>
+              <div><strong>🌞 Lunch:</strong> ${lunch}</div>
+              <div><strong>🌙 Dinner:</strong> ${dinner}</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      planHtml += `
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin-top: 20px;">
+            <strong>🛒 Prep Tips:</strong> Shop on Sunday, prep ingredients in advance, and batch cook grains and proteins for the week!
+          </div>
+        </div>
+      `;
+      
+      return planHtml;
+    }
+
+    // Premium Modal
+    function showPremiumModal() {
+      const modal = `
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; align-items: center; justify-content: center;" onclick="this.remove()">
+          <div style="background: white; padding: 40px; border-radius: 20px; max-width: 500px; text-align: center;" onclick="event.stopPropagation()">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">🚀 Upgrade to Chef Pro</h2>
+            <p style="margin-bottom: 30px; color: #666;">Unlock advanced AI features, unlimited recipes, and professional tools!</p>
+            <div style="background: linear-gradient(135deg, #f7931e 0%, #ffd700 100%); color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+              <h3 style="margin: 0 0 10px 0;">✨ Pro Features Include:</h3>
+              <p style="margin: 0;">• Advanced Recipe Analytics & Cost Calculator<br>• Video Script Generator<br>• SEO-Optimized Content<br>• Batch Processing Tools<br>• Priority Support</p>
+            </div>
+            <button style="background: var(--gradient); color: white; border: none; padding: 15px 30px; border-radius: 12px; font-size: 1.1rem; cursor: pointer; margin-right: 10px;" onclick="showToast('Pro features coming soon! 🚀')">Start Free Trial</button>
+            <button style="background: #6c757d; color: white; border: none; padding: 15px 30px; border-radius: 12px; cursor: pointer;" onclick="this.parentElement.parentElement.remove()">Maybe Later</button>
+          </div>
+        </div>
+      `;
+      document.body.insertAdjacentHTML('beforeend', modal);
+    }
+
+    // Utility Functions
+    function showLoading(output, message) {
+      output.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 15px; padding: 20px;">
+          <div class="loading-spinner"></div>
+          <span>${message}</span>
+        </div>
+      `;
+      output.classList.add('show', 'loading');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function updateStats(type) {
+      const counters = {
+        recipes: 'recipesGenerated',
+        titles: 'titlesCreated',
+        content: 'contentPieces'
+      };
+      
+      if (counters[type]) {
+        const element = document.getElementById(counters[type]);
+        const current = parseInt(element.textContent.replace(',', ''));
+        element.textContent = (current + 1).toLocaleString();
+      }
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cuisine tag selection
+      document.querySelectorAll('.cuisine-tag').forEach(tag => {
+        tag.addEventListener('click', function() {
+          document.querySelectorAll('.cuisine-tag').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Difficulty button selection
+      document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.difficulty-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        });
+      });
+
+      // Remove loading class when content is shown
+      document.querySelectorAll('.output').forEach(output => {
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.target.classList.contains('show')) {
+              mutation.target.classList.remove('loading');
+            }
+          });
+        });
+        observer.observe(output, { attributes: true, attributeFilter: ['class'] });
+      });
+
+      // Animate stats on load
+      animateStats();
+    });
+
+    function animateStats() {
+      const stats = document.querySelectorAll('.stat-number');
+      stats.forEach(stat => {
+        const target = parseInt(stat.textContent.replace(',', ''));
+        let current = 0;
+        const increment = target / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          stat.textContent = Math.floor(current).toLocaleString();
+        }, 30);
+      });
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+      if (e.ctrlKey || e.metaKey) {
+        switch(e.key) {
+          case '1':
+            e.preventDefault();
+            document.getElementById('ingredients').focus();
+            break;
+          case '2':
+            e.preventDefault();
+            document.getElementById('videoTopic').focus();
+            break;
+          case '3':
+            e.preventDefault();
+            document.getElementById('contentDesc').focus();
+            break;
+        }
+      }
+    });
+  </script>
 </body>
-  </html>
+</html>
