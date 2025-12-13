@@ -1,5 +1,8 @@
 /* Windows 11 Emulator JS */
 
+// NOTE: Replace with your own free API key from https://newsapi.org/
+const NEWS_API_KEY = 'YOUR_API_KEY';
+
 const windowsContainer = document.getElementById('windows-container');
 const startMenu = document.getElementById('start-menu');
 const taskbarCenter = document.getElementById('taskbar-center');
@@ -54,7 +57,7 @@ function openApp(name) {
   let thumb = document.createElement('div');
   thumb.className = 'taskbar-thumb';
   thumb.dataset.app = name;
-  thumb.innerHTML = `<img src="https://img.icons8.com/fluency/24/000000/notepad.png"/>`;
+  thumb.innerHTML = `<img src="https://img.icons8.com/fluency/24/000000/${getIconForCategory(name)}.png"/>`;
   thumb.onclick = () => {
     if (windowEl.style.display === 'none') {
       windowEl.style.display = 'flex';
@@ -73,12 +76,59 @@ function openApp(name) {
   makeDraggable(windowEl, header);
 }
 
+async function fetchNews(category) {
+  if (NEWS_API_KEY === 'YOUR_API_KEY') {
+    console.log("Using mock news data. Please provide a valid API key for real news.");
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(mockNewsData[category]);
+      }, 500);
+    });
+  }
+  const API_URL = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${NEWS_API_KEY}`;
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.articles;
+  } catch (error) {
+    console.error("Could not fetch news: ", error);
+    return null;
+  }
+}
+
 function generateAppContent(name) {
-  switch (name) {
-    case 'notepad':
-      return `<textarea style="width:100%;height:100%;border:none;resize:none;outline:none;background:transparent;color:#000;font-family:'Consolas','Courier New',monospace;"></textarea>`;
-    default:
-      return `<p>Hello from ${name}</p>`;
+  fetchNews(name).then(articles => {
+    const contentEl = document.querySelector(`.window[data-app="${name}"] .window-content`);
+    if (articles) {
+      let html = '<ul class="news-list">';
+      articles.forEach(article => {
+        html += `
+          <li class="news-item">
+            <a href="${article.url}" target="_blank" class="news-link">
+              <h4 class="news-title">${article.title}</h4>
+              <p class="news-description">${article.description || ''}</p>
+            </a>
+          </li>`;
+      });
+      html += '</ul>';
+      contentEl.innerHTML = html;
+    } else {
+      contentEl.innerHTML = '<p>Could not load news. Please check your API key.</p>';
+    }
+  });
+  return 'Loading news...';
+}
+
+function getIconForCategory(category) {
+  switch (category) {
+    case 'general': return 'news';
+    case 'business': return 'business';
+    case 'technology': return 'electronics';
+    case 'entertainment': return 'movie-projector';
+    default: return 'news';
   }
 }
 
