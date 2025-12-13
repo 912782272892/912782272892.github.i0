@@ -7,16 +7,28 @@ Author: AI
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Windows 11 Emulator</title>
+  <title>News Desktop</title>
   <link rel="stylesheet" href="win11.css">
 </head>
 <body>
   <!-- Desktop Background -->
   <div id="desktop">
-    <!-- Example desktop icon -->
-    <div class="desktop-icon" onclick="openApp('notepad')">
-      <img src="https://img.icons8.com/fluency/48/000000/notepad.png"/>
-      <span>Notepad</span>
+    <!-- News category icons -->
+    <div class="desktop-icon" onclick="openApp('general')">
+      <img src="https://img.icons8.com/fluency/48/000000/news.png"/>
+      <span>General</span>
+    </div>
+    <div class="desktop-icon" onclick="openApp('business')">
+      <img src="https://img.icons8.com/fluency/48/000000/business.png"/>
+      <span>Business</span>
+    </div>
+    <div class="desktop-icon" onclick="openApp('technology')">
+      <img src="https://img.icons8.com/fluency/48/000000/electronics.png"/>
+      <span>Technology</span>
+    </div>
+    <div class="desktop-icon" onclick="openApp('entertainment')">
+      <img src="https://img.icons8.com/fluency/48/000000/movie-projector.png"/>
+      <span>Entertainment</span>
     </div>
   </div>
 
@@ -48,6 +60,7 @@ Author: AI
   <!-- App Windows Container -->
   <div id="windows-container"></div>
 
+  <script src="mock-news.js"></script>
   <script src="win11.js"></script>
 </body>
 </html>
